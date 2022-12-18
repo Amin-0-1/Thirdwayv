@@ -8,9 +8,11 @@
 import UIKit
 
 protocol HomeRouterToPresenter{
-    func navigateToConnection()
+    func navigateToPopupError(message:String)
+    func navigateToDetails(withProduct:ProductModel)
 }
 class HomeRouter:HomeRouterToPresenter{
+ 
     var vc: UIViewController!
     
     init(vc:UIViewController){
@@ -32,8 +34,17 @@ class HomeRouter:HomeRouterToPresenter{
         return nav
     }
     
-    func navigateToConnection() {
-        
+    func navigateToDetails(withProduct product: ProductModel) {
+        let vc = DetailsRouter.createModule(withModel: product)
+        self.vc.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func navigateToPopupError(message:String) {
+        let vc = PopupMessage()
+        vc.isModalInPresentation = true
+        vc.modalTransitionStyle = .crossDissolve
+        vc.configure(state: .Info, message: message)
+        self.vc.present(vc, animated: true)
     }
     
 }

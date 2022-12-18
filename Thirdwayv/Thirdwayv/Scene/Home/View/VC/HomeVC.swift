@@ -24,7 +24,6 @@ class HomeVC: UIViewController {
         configureNavigation()
         configureCollection()
         presenter.fetchProducts()
-      
     }
     
     private func configureNavigation(){
@@ -54,6 +53,9 @@ extension HomeVC : UICollectionViewDelegate, UICollectionViewDataSource,UICollec
 
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectItem(at:indexPath.item)
+    }
 }
 extension HomeVC: PinterestLayoutDelegate {
     func collectionView(
@@ -74,6 +76,7 @@ extension HomeVC:HomeViewToPresenter{
     
     func onFinishFetching() {
         uiCollection.reloadData()
+        presenter.stopPaginating()
     }
 }
 
@@ -81,7 +84,7 @@ extension HomeVC:UIScrollViewDelegate{
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-        if position > (uiCollection.contentSize.height-50-scrollView.frame.height){
+        if position > (uiCollection.contentSize.height-10-scrollView.frame.height){
             
             
             guard !presenter.isPaginating() else {return}
