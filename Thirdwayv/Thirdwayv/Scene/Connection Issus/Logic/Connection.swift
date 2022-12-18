@@ -8,14 +8,24 @@
 import Foundation
 import Network
 
+
+enum ConnectionStatus{
+    case Online
+    case Offline
+}
+protocol ConnectionNotifiable: AnyObject {
+    func connection(status:ConnectionStatus)
+}
 class Connectivity{
     
     static var shared = Connectivity()
     private var path:NWPathMonitor?
     private let queue = DispatchQueue.global()
+    private var listener : ConnectionNotifiable?
     public private(set) var isConnected:Bool = false
     private init(){
         path = NWPathMonitor()
+        
     }
     
     func startMonitoring(){
@@ -25,11 +35,19 @@ class Connectivity{
         path.start(queue: self.queue)
         path.pathUpdateHandler = {[weak self] path in
             guard let self = self else {return}
-            self.isConnected = path.status != .unsatisfied
-            print(self.isConnected)
+            let isConnected = path.status != .unsatisfied
+            
+            guard isConnected != self.isConnected else {return}
+            self.isConnected = isConnected
+            
+            DispatchQueue.main.async {
+                self.listener?.connection(status: self.isConnected ? .Online : .Offline)
+            }
         }
     }
-    func getConnectionPath()->NWPathMonitor?{
-        return path
+    
+    func addListener(listener:ConnectionNotifiable){
+        self.listener = nil
+        self.listener = listener
     }
 }

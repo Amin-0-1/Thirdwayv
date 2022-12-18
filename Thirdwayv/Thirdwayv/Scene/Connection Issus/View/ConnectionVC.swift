@@ -7,18 +7,12 @@
 
 import UIKit
 
-class ConnectionVC: UIViewController , ConnectionVCProtocol{
-    var presenter: ConnectionPresenterToView!
-    
-
+class ConnectionVC: UIViewController {
+    @IBOutlet weak var uiLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        presenter.onScreenAppeared()
+        uiLabel.text  = "No Internet Connection, try to connect again"
     }
 
 }
 
-extension ConnectionVC: ConnectionViewToPresenter{
-    
-}

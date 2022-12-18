@@ -8,9 +8,15 @@
 import UIKit
 
 protocol HomeRouterToPresenter{
-    func navigateToConnection()
+    func navigateToPopupError(message:String,completion:(()->Void)?)
+    func navigateToPopupInfo(message:String,completion:(()->Void)?)
+    func navigateToDetails(withProduct:ProductModel)
+    func navigateToConnectionIssue()
+    func navigateToOnlineToast()
+    func navigateToOfflineToast()
 }
 class HomeRouter:HomeRouterToPresenter{
+    
     var vc: UIViewController!
     
     init(vc:UIViewController){
@@ -20,9 +26,8 @@ class HomeRouter:HomeRouterToPresenter{
     static func createModule()->UINavigationController{
         let vc = HomeVC()
         let presenter = HomePresenter()
-        let datasource: Datasourceable = Connectivity.shared.isConnected ? DatasourceFactory.buildDataSource(type: .Online) : DatasourceFactory.buildDataSource(type: .Offline)
-        
-        let interactor = HomeInteractor(datasource: datasource)
+      
+        let interactor = HomeInteractor()
         presenter.interactor = interactor
         presenter.router = HomeRouter(vc: vc)
         presenter.view = vc
@@ -32,8 +37,52 @@ class HomeRouter:HomeRouterToPresenter{
         return nav
     }
     
-    func navigateToConnection() {
+    func navigateToDetails(withProduct product: ProductModel) {
+        let vc = DetailsRouter.createModule(withModel: product)
         
+        let transition: CATransition = .init()
+        transition.duration = 0.3
+        transition.type = .reveal
+        transition.subtype = .fromRight
+        self.vc.view.window?.layer.add(transition, forKey: nil)
+        
+        self.vc.navigationController?.pushViewController(vc, animated: false)
+    }
+    func navigateToPopupError(message:String,completion:(()->Void)? = nil) {
+        let vc = PopupMessage()
+        vc.isModalInPresentation = true
+        vc.modalTransitionStyle = .crossDissolve
+        vc.configure(state: .Error, message: message,completion: completion)
+        self.vc.present(vc, animated: true)
+    }
+    
+    func navigateToPopupInfo(message:String,completion:(()->Void)? = nil) {
+        let vc = PopupMessage()
+        vc.isModalInPresentation = true
+        vc.modalTransitionStyle = .crossDissolve
+        vc.configure(state: .Info, message: message,completion: completion)
+        self.vc.present(vc, animated: true)
+        
+    }
+    
+    func navigateToConnectionIssue() {
+        let vc = ConnectionRouter.createModule()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        self.vc.present(vc, animated: true)
+    }
+    func navigateToOnlineToast() {
+        let vc = ToastPopup()
+        vc.configure("Your are connected", .Success)
+        vc.modalTransitionStyle = .crossDissolve
+        self.vc.present(vc, animated: true)
+    }
+    
+    func navigateToOfflineToast() {
+        let vc = ToastPopup()
+        vc.configure("Your are disconnected", .Error)
+        vc.modalTransitionStyle = .crossDissolve
+        self.vc.present(vc, animated: true)
     }
     
 }

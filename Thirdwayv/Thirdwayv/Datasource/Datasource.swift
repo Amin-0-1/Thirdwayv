@@ -7,22 +7,27 @@
 
 import Foundation
 
-enum DatasourceState{
+enum DatasourceConnectionState{
     case Online
     case Offline
 }
 
 protocol Datasourceable{
     func fetch(completion: @escaping (Result<[ProductModel],CustomError>) -> Void)
+    func save(products:[ProductModel],completion:@escaping (CustomError?)->Void)
+}
+extension Datasourceable{
+    func save(products: [ProductModel], completion: @escaping (CustomError?) -> Void) {}
 }
 
+
 class DatasourceFactory{
-    static func buildDataSource(type:DatasourceState)->Datasourceable{
+    static func buildDataSource(type:DatasourceConnectionState)->Datasourceable{
         switch type {
             case .Online:
                 return RemoteDatasource()
             case .Offline:
-                return LocalDatasource()
+                return LocalDatasource(type: .PROD)
         }
     }
 }

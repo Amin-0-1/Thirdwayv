@@ -12,15 +12,15 @@ extension UIViewController {
     
     func startLoading() {
         let activityIndicator = UIViewController.activityIndicator
+        activityIndicator.style = .large
+        activityIndicator.color = .label
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.medium
         DispatchQueue.main.async {
             self.view.addSubview(activityIndicator)
         }
         activityIndicator.startAnimating()
         view.isUserInteractionEnabled = false
-//        UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
     func stopLoading() {
@@ -30,6 +30,5 @@ extension UIViewController {
             activityIndicator.removeFromSuperview()
         }
         view.isUserInteractionEnabled = true
-//        UIApplication.shared.endIgnoringInteractionEvents()
     }
 }

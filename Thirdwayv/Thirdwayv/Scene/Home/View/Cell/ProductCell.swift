@@ -16,21 +16,23 @@ class ProductCell: UICollectionViewCell {
     
     func configure(withModel model:ProductModel){
         uiDesc.text = model.productDescription
-        uiTitle.text = "\(model.price)$"
-        guard let url = URL(string: model.image.url) else {return}
-        uiImage.load(url: url)
-//        uiImage.loadFrom(URLAddress: model.image.url)
+        uiTitle.text = "\(model.price ?? Int.random(in: 100...1000))$"
+        
+        guard let image = model.image?.imageData else {return}
+        uiImage.image = UIImage(data: image)
+
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer.cornerRadius = 6
-        uiContainerView.layer.cornerRadius = 6
-        uiImage.roundCorners(corners: [.topLeft,.topRight], radius: 6)
+        self.layer.cornerRadius = 20
+        uiContainerView.layer.cornerRadius = 20
+        uiImage.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         
         uiContainerView.layer.borderColor = UIColor.systemGray.cgColor
         uiContainerView.layer.borderWidth = 0.3
         uiContainerView.layer.shadowColor = UIColor.systemGray.cgColor
-        uiContainerView.layer.shadowOpacity = 0.3
+        uiContainerView.layer.shadowRadius = 1
+        uiContainerView.layer.shadowOpacity = 0.8
         uiContainerView.layer.shadowOffset = CGSize(width: 5, height: 5)
     }
 
