@@ -59,16 +59,22 @@ extension HomeVC : UICollectionViewDelegate, UICollectionViewDataSource,UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {    
         presenter.didSelectItem(at:indexPath.item)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let animationDuration: Double = 1.0
-        cell.alpha = 0.1
-        cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        UIView.animate(withDuration: animationDuration, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: [], animations: {
-            cell.alpha = 1
-            cell.transform = .identity
-        })
         
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            let animationDuration: Double = 0.5
+            cell.alpha = 0.1
+            cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            UIView.animate(withDuration: animationDuration, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: [], animations: {
+                cell.alpha = 1
+                cell.transform = .identity
+            })
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.contentView.layer.removeAllAnimations()
     }
 }
 extension HomeVC: PinterestLayoutDelegate {

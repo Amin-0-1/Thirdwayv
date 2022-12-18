@@ -209,7 +209,7 @@
 		273EA2D9294CAF000013CFDF /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				27C8D492294F969D00DB3B37 /* Toas */,
+				27C8D492294F969D00DB3B37 /* Toast */,
 				27226819294E0DA50045AD92 /* PopupMessage */,
 				273EA2DA294CAFA50013CFDF /* Connection Issus */,
 				273EA2EA294CB0160013CFDF /* Home */,
@@ -356,13 +356,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		27C8D492294F969D00DB3B37 /* Toas */ = {
+		27C8D492294F969D00DB3B37 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
 				27C8D493294F97CC00DB3B37 /* ToastPopup.swift */,
 				27C8D494294F97CC00DB3B37 /* ToastPopup.xib */,
 			);
-			path = Toas;
+			path = Toast;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

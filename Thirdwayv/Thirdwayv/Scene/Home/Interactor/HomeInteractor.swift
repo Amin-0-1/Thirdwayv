@@ -17,7 +17,6 @@ class HomeInteractor:HomeInteractorToPresenter{
     
     
     func fetchProducts(datasource:Datasourceable) {
-//        presenter.onFinishFetching(withData: [])
         
         datasource.fetch { [weak self] model in
             guard let self = self else {return}
@@ -78,6 +77,7 @@ class HomeInteractor:HomeInteractorToPresenter{
     private func resetLocalData(){
         LocalDatasource(type: .PROD).resetLocal()
     }
+    
     
 }
 
