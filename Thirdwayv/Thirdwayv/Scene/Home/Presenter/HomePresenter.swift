@@ -75,7 +75,9 @@ extension HomePresenter:HomePresenterToView{
     }
     func onViewWillAppear() {
         Connectivity.shared.addListener(listener: self)
+        self.pagination = false
         fetchProducts()
+
     }
     
 }
