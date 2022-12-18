@@ -7,19 +7,23 @@
 
 import Foundation
 
-class ConnectionPresenter: ConnectionPresenterProtocol{
+class ConnectionPresenter{
     var router: ConnectionRouterProtocol!
-    var view: ConnectionViewToPresenter!
+    
+    init(router: ConnectionRouterProtocol) {
+        Connectivity.shared.addListener(listener: self)
+        self.router = router
+    }
     
 }
 
-extension ConnectionPresenter: ConnectionPresenterToView{
-    func onScreenAppeared() {
-//        let con = Connectivity.shared
-//        con.getConnectionPath().pathUpdateHandler = { [unowned self] path in
-//            if path.status == .satisfied{
-//                router.dismiss()
-//            }
-//        }
+extension ConnectionPresenter:ConnectionNotifiable{
+    func connection(status: ConnectionStatus) {
+        switch status {
+            case .Online:
+                router.dismiss()
+            case .Offline:
+                break
+        }
     }
 }

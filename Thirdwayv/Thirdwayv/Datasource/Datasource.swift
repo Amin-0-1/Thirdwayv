@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DatasourceState{
+enum DatasourceConnectionState{
     case Online
     case Offline
 }
@@ -22,7 +22,7 @@ extension Datasourceable{
 
 
 class DatasourceFactory{
-    static func buildDataSource(type:DatasourceState)->Datasourceable{
+    static func buildDataSource(type:DatasourceConnectionState)->Datasourceable{
         switch type {
             case .Online:
                 return RemoteDatasource()

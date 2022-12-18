@@ -16,11 +16,13 @@ class PopupMessage: UIViewController {
     @IBOutlet private weak var uiImage: UIImageView!
     @IBOutlet private weak var uiLabel: UILabel!
     
-    var state:PopupState!
-    var message:String!
-    func configure(state:PopupState,message:String){
+    private var completion:(()->Void)?
+    private var state:PopupState!
+    private var message:String!
+    func configure(state:PopupState,message:String,completion:(()->Void)?){
         self.state = state
         self.message = message
+        self.completion = completion
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,5 +41,12 @@ class PopupMessage: UIViewController {
     }
     @IBAction func uiCloseTapped(_ sender: Any) {
         self.dismiss(animated: true)
+        guard let completion = completion else {return}
+        completion()
+    }
+    @IBAction func uiOkTapped(_ sender: Any) {
+        self.dismiss(animated: true)
+        guard let completion = completion else {return}
+        completion()
     }
 }

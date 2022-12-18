@@ -33,7 +33,23 @@ class DetailsVC: UIViewController {
         uiTitle.text = "\(presenter.getPrice())$"
         uiDescription.text = "\(presenter.getDesc())"
         
+        self.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: " <  Home", style: UIBarButtonItem.Style.plain, target: self, action: #selector(backSelector))
+        self.navigationItem.leftBarButtonItem = newBackButton
     }
+    
+    @objc private func backSelector(sender: UIBarButtonItem) {
+        
+        let transition = CATransition()
+        transition.duration = 1
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromTop
+        self.view.window?.layer.add(transition, forKey: nil)
+        
+        navigationController?.popViewController(animated: false)
+    }
+        
     func setupImage() {
         
         uiImageView.layer.borderWidth = 0.3

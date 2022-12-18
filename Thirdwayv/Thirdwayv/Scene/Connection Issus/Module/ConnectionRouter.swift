@@ -7,17 +7,20 @@
 
 import UIKit
 
+
+protocol ConnectionRouterProtocol{
+    func dismiss()
+}
+
 class ConnectionRouter: ConnectionRouterProtocol{
     var viewController: UIViewController!
     
     static func createModule() -> UIViewController {
         
         let view = ConnectionVC()
-        let presenter = ConnectionPresenter()
+        let presenter = ConnectionPresenter(router: ConnectionRouter(view: view))
         let router = ConnectionRouter(view: view)
-        
-        view.presenter = presenter
-        presenter.view = view
+
         presenter.router = router
         return view
     }
@@ -26,7 +29,7 @@ class ConnectionRouter: ConnectionRouterProtocol{
         viewController.dismiss(animated: true)
     }
     
-    required init(view: UIViewController) {
+    init(view: UIViewController) {
         self.viewController = view
     }
     

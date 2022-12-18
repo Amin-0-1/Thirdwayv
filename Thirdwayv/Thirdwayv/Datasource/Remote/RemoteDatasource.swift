@@ -13,6 +13,7 @@ class RemoteDatasource:Datasourceable{
 
     func fetch(completion: @escaping (Result<[ProductModel],CustomError>) -> Void) {
         guard let url = URL(string: Self.url) else {return}
+        guard Connectivity.shared.isConnected else {completion(.failure(.InternetError));return}
         URLSession.shared.dataTask(with: url) { (data, res, err) in
             
             if let err = err {
@@ -32,7 +33,7 @@ class RemoteDatasource:Datasourceable{
                 }
             }else{
                 DispatchQueue.main.async {
-                    completion(.failure(.InternetError))
+                    completion(.failure(.ServerError))
                 }
             }
         }.resume()

@@ -15,6 +15,7 @@ protocol HomePresenterToView{
     func isPaginating()->Bool
     func stopPaginating()
     func didSelectItem(at index: Int)
+    func onViewWillAppear()
 }
 
 
@@ -25,13 +26,18 @@ protocol HomePresenterToInteractor:AnyObject{
     func onFinishCaching(withError error:CustomError)
 }
 
-class HomePresenter:HomePresenterToView{
+class HomePresenter{
     
     weak var view:HomeViewToPresenter!
     var interactor: HomeInteractorToPresenter!
     var router: HomeRouterToPresenter!
     private var pagination = false
     private var products:[ProductModel] = []
+    
+}
+
+extension HomePresenter:HomePresenterToView{
+
     func fetchProducts() {
         guard !pagination else {
             return
@@ -39,7 +45,11 @@ class HomePresenter:HomePresenterToView{
         pagination = true
         
         view.showLoading()
-        interactor.fetchProducts()
+        
+        
+        let datasource = Connectivity.shared.isConnected ? DatasourceFactory.buildDataSource(type: .Online) : DatasourceFactory.buildDataSource(type: .Offline)
+        
+        interactor.fetchProducts(datasource: datasource)
     }
     func getCount() -> Int {
         return products.count
@@ -63,6 +73,10 @@ class HomePresenter:HomePresenterToView{
         let product = products[index]
         router.navigateToDetails(withProduct: product)
     }
+    func onViewWillAppear() {
+        Connectivity.shared.addListener(listener: self)
+        fetchProducts()
+    }
     
 }
 
@@ -70,17 +84,37 @@ class HomePresenter:HomePresenterToView{
 extension HomePresenter: HomePresenterToInteractor{
     
     func onFinishFetching(withData data: [ProductModel]) {
+        guard !data.isEmpty else {
+            let message = "No Internet connection or chached data to be displayd, please connect to the internet and try again ..."
+            router.navigateToPopupInfo(message: message) {
+                self.router.navigateToConnectionIssue()
+            }
+            return
+        }
         view.hideLoading()
         products += data
         view.onFinishFetching()
-//        pagination = true
     }
     
     func onFinishFetching(withError error: CustomError) {
-        router.navigateToPopupError(message: error.description)
+        router.navigateToPopupError(message: error.description, completion: nil)
     }
     
     func onFinishCaching(withError error: CustomError) {
-        router.navigateToPopupError(message: error.description)
+        router.navigateToPopupInfo(message: error.description, completion: nil)
+        
+    }
+}
+
+
+extension HomePresenter:ConnectionNotifiable{
+    func connection(status: ConnectionStatus) {
+        switch status {
+            case .Online:
+                router.navigateToOnlineToast()
+                fetchProducts()
+            case .Offline:
+                router.navigateToOfflineToast()
+        }
     }
 }

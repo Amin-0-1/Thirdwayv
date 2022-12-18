@@ -29,7 +29,6 @@
 		273EA2CF294CADA80013CFDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 273EA2CE294CADA80013CFDF /* Assets.xcassets */; };
 		273EA2E4294CAFA50013CFDF /* ConnectionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA2DC294CAFA50013CFDF /* ConnectionRouter.swift */; };
 		273EA2E5294CAFA50013CFDF /* ConnectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA2DD294CAFA50013CFDF /* ConnectionPresenter.swift */; };
-		273EA2E6294CAFA50013CFDF /* ConnectionsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA2DE294CAFA50013CFDF /* ConnectionsProtocols.swift */; };
 		273EA2E7294CAFA50013CFDF /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA2E0294CAFA50013CFDF /* Connection.swift */; };
 		273EA2E8294CAFA50013CFDF /* ConnectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA2E2294CAFA50013CFDF /* ConnectionVC.swift */; };
 		273EA2E9294CAFA50013CFDF /* ConnectionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 273EA2E3294CAFA50013CFDF /* ConnectionVC.xib */; };
@@ -40,6 +39,8 @@
 		273EA300294CB3BD0013CFDF /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA2FF294CB3BD0013CFDF /* ReusableView.swift */; };
 		273EA302294CB47D0013CFDF /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA301294CB47D0013CFDF /* NibLoadableView.swift */; };
 		273EA304294CB8440013CFDF /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA303294CB8440013CFDF /* HomeRouter.swift */; };
+		27C8D495294F97CC00DB3B37 /* ToastPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C8D493294F97CC00DB3B37 /* ToastPopup.swift */; };
+		27C8D496294F97CC00DB3B37 /* ToastPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27C8D494294F97CC00DB3B37 /* ToastPopup.xib */; };
 		27F86E02294E0FD40032BC51 /* PopupMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F86E00294E0FD40032BC51 /* PopupMessage.swift */; };
 		27F86E03294E0FD40032BC51 /* PopupMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F86E01294E0FD40032BC51 /* PopupMessage.xib */; };
 /* End PBXBuildFile section */
@@ -69,7 +70,6 @@
 		273EA2D3294CADA80013CFDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		273EA2DC294CAFA50013CFDF /* ConnectionRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionRouter.swift; sourceTree = "<group>"; };
 		273EA2DD294CAFA50013CFDF /* ConnectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionPresenter.swift; sourceTree = "<group>"; };
-		273EA2DE294CAFA50013CFDF /* ConnectionsProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsProtocols.swift; sourceTree = "<group>"; };
 		273EA2E0294CAFA50013CFDF /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		273EA2E2294CAFA50013CFDF /* ConnectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionVC.swift; sourceTree = "<group>"; };
 		273EA2E3294CAFA50013CFDF /* ConnectionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectionVC.xib; sourceTree = "<group>"; };
@@ -80,6 +80,8 @@
 		273EA2FF294CB3BD0013CFDF /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		273EA301294CB47D0013CFDF /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
 		273EA303294CB8440013CFDF /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		27C8D493294F97CC00DB3B37 /* ToastPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPopup.swift; sourceTree = "<group>"; };
+		27C8D494294F97CC00DB3B37 /* ToastPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastPopup.xib; sourceTree = "<group>"; };
 		27F86E00294E0FD40032BC51 /* PopupMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMessage.swift; sourceTree = "<group>"; };
 		27F86E01294E0FD40032BC51 /* PopupMessage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupMessage.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +209,7 @@
 		273EA2D9294CAF000013CFDF /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				27C8D492294F969D00DB3B37 /* Toast */,
 				27226819294E0DA50045AD92 /* PopupMessage */,
 				273EA2DA294CAFA50013CFDF /* Connection Issus */,
 				273EA2EA294CB0160013CFDF /* Home */,
@@ -230,7 +233,6 @@
 			children = (
 				273EA2DC294CAFA50013CFDF /* ConnectionRouter.swift */,
 				273EA2DD294CAFA50013CFDF /* ConnectionPresenter.swift */,
-				273EA2DE294CAFA50013CFDF /* ConnectionsProtocols.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -354,6 +356,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		27C8D492294F969D00DB3B37 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				27C8D493294F97CC00DB3B37 /* ToastPopup.swift */,
+				27C8D494294F97CC00DB3B37 /* ToastPopup.xib */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -418,6 +429,7 @@
 				273EA2FA294CB1630013CFDF /* ProductCell.xib in Resources */,
 				273EA2CF294CADA80013CFDF /* Assets.xcassets in Resources */,
 				273C10A4294E62F2005749CB /* DetailsVC.xib in Resources */,
+				27C8D496294F97CC00DB3B37 /* ToastPopup.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +443,9 @@
 				273EA302294CB47D0013CFDF /* NibLoadableView.swift in Sources */,
 				273EA2F9294CB1630013CFDF /* ProductCell.swift in Sources */,
 				273EA2E5294CAFA50013CFDF /* ConnectionPresenter.swift in Sources */,
+				27C8D495294F97CC00DB3B37 /* ToastPopup.swift in Sources */,
 				272267EF294CEE480045AD92 /* HomeInteractor.swift in Sources */,
 				27226807294D1E540045AD92 /* UIViewController.swift in Sources */,
-				273EA2E6294CAFA50013CFDF /* ConnectionsProtocols.swift in Sources */,
 				273EA2CD294CADA60013CFDF /* Thirdwayv.xcdatamodeld in Sources */,
 				273EA300294CB3BD0013CFDF /* ReusableView.swift in Sources */,
 				27F86E02294E0FD40032BC51 /* PopupMessage.swift in Sources */,

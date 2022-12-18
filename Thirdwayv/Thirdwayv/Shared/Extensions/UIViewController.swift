@@ -13,7 +13,7 @@ extension UIViewController {
     func startLoading() {
         let activityIndicator = UIViewController.activityIndicator
         activityIndicator.style = .large
-        activityIndicator.color = .black
+        activityIndicator.color = .label
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         DispatchQueue.main.async {
