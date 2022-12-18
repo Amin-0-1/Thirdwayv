@@ -34,12 +34,25 @@ class DetailsVC: UIViewController {
         uiDescription.text = "\(presenter.getDesc())"
         
         self.navigationItem.hidesBackButton = true
-        let newBackButton = UIBarButtonItem(title: " <  Home", style: UIBarButtonItem.Style.plain, target: self, action: #selector(backSelector))
+        let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItem.Style.plain, target: self, action: #selector(backSelector))
         self.navigationItem.leftBarButtonItem = newBackButton
+        
+        setupSwipe()
     }
     
+    private func setupSwipe(){
+        let ges = UISwipeGestureRecognizer(target: self, action: #selector(swipeSelector))
+        ges.direction = .right
+        self.view.addGestureRecognizer(ges)
+    }
+    @objc private func swipeSelector(){
+        self.dismissView()
+    }
     @objc private func backSelector(sender: UIBarButtonItem) {
-        
+        self.dismissView()
+    }
+    
+    private func dismissView(){
         let transition = CATransition()
         transition.duration = 1
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
